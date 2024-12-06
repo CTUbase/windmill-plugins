@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 import joblib
 
 # Load the dataset
-df = pd.read_csv('datasets.csv')
+df = pd.read_csv('datasets/datasets.csv')
 
 # Split the dataset into features and labels
 X = df[['death', 'injuries', 'property_large', 'property_medium', 'property_small', 'keyword']]
@@ -31,4 +31,5 @@ print(f'Highest Accuracy: {highest_accuracy}')
 print(f'Mean Accuracy: {accuracies.mean()}')
 
 # Store the model with the highest accuracy into a joblib file
-joblib.dump(clf, 'best_decision_tree_model.joblib')
+joblib.dump(clf, 'models/best_decision_tree_model.joblib')
+print("Successfully save the model to models/best_decision_tree_model.joblib")
