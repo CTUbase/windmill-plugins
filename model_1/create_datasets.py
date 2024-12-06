@@ -8,15 +8,11 @@ with open('input.txt', 'r') as file:
 
 for url in urls: 
     # Crawl dữ liệu từ url
-    article = define_and_crawl(url)
+    
+    data = analyze(url)
 
-    if article is None:
-        continue
-
-    string = article["title"] + article['description'] + article['content']
-
-    tokens = create_tokens(string)
-    data = analyze(tokens)["ratio"]
+    article = data['article']
+    ratios = data['ratio']
 
     # Write the ratios to a CSV file
     with open('datasets/datasets.csv', 'a', newline='', encoding='utf-8') as csvfile:
@@ -28,9 +24,9 @@ for url in urls:
             writer.writeheader()
 
         writer.writerow({
-            'region': data[0],
-            'bao_lu': data[1],
-            'dich_benh': data[2],
+            'region': ratios[0],
+            'bao_lu': ratios[1],
+            'dich_benh': ratios[2],
             'label': 0
         })
     

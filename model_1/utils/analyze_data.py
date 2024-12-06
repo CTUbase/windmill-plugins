@@ -18,10 +18,9 @@ def analyze(url):
 
     len_tokens = len(tokens)
 
-    region_count = count_tokens_in_url('', tokens)
-    baolu_count = count_tokens_in_file('base_data/bao_lu.txt', tokens)
-    dichbenh_count = count_tokens_in_file('base_data/dich_benh.txt', tokens)
-    
+    region_count = count_tokens_in_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_1/sample/region.txt', tokens)
+    baolu_count = count_tokens_in_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_1/sample/bao_lu.txt', tokens)
+    dichbenh_count = count_tokens_in_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_1/sample/dich_benh.txt', tokens)
 
     region_ratio = region_count / len_tokens
     baolu_ratio = baolu_count / len_tokens
@@ -39,9 +38,14 @@ def find_location(article):
 
     doc = title +  " " + description + " " + content
     tokens = create_tokens(doc)
-    with open('base_data/region.txt', 'r', encoding='utf-8') as file:
-        region_keywords = set(file.read().splitlines())
+    response = requests.get('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_1/sample/region.txt')
+    if response.status_code != 200:
+        return None
+    
+   
+    region_keywords = set(response.text.splitlines())
 
     found_locations = list(set(token for token in tokens if token in region_keywords and "_" in token))
 
     return found_locations
+
