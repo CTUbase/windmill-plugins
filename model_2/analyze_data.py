@@ -50,8 +50,8 @@ def first_appearance_index(test_token_list, context):
     for idx, test_token in enumerate(test_token_list):
         count = count_tokens(test_token, context)
         if count > 0:
-            return idx
-    return -1
+            return idx+1
+    return 0
 
 def appearance_array(test_token_list, context):
     appearance = []
