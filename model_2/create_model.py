@@ -14,7 +14,7 @@ y = df['label']
 # Initialize the Decision Tree classifier
 clf = DecisionTreeClassifier(random_state=42)
 
-# Initialize KFold with 5 splits (each fold is 20%)
+# Initialize KFold with 5 splits (each fold is 10%)
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 # Perform k-fold cross-validation and evaluate the model

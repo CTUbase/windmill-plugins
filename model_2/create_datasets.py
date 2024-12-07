@@ -21,7 +21,7 @@ with open('datasets/datasets.csv', 'a', newline='', encoding='utf-8') as csvfile
             'property_medium': data['property'][1],
             'property_small': data['property'][2],
             'keyword': data['keyword'],
-            'label': 3
+            'label': 0
         }
 
         writer.writerow(csv_data)
