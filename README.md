@@ -2,9 +2,9 @@
 
 Tập hợp những plugin được phát triển cho nền tảng Windmill, phục vụ cho **cuộc thi Phần mềm nguồn mở - Olympic Tin học Sinh viên Việt Nam 2024**.
 
-## Danh sách Plugin
+## 📃 Danh sách Plugin
 
-### 1. **Trích xuất những địa điểm gặp nguy hiểm từ VNExpress**
+### 1. **Mô hình 1: Trích xuất những địa điểm gặp nguy hiểm từ VNExpress**
 
 #### Miêu tả:
 Plugin này có chức năng:
@@ -20,7 +20,7 @@ Công cụ hữu ích để cảnh báo các khu vực nguy hiểm, hỗ trợ r
 
 ---
 
-### 2. **Dự đoán mức độ nghiêm trọng của sự kiện**
+### 2. **Mô hình 2: Dự đoán mức độ nghiêm trọng của sự kiện**
 
 #### Miêu tả:
 Plugin này sử dụng các thông tin mô tả cụ thể về thiệt hại, như:
@@ -43,20 +43,21 @@ Giúp các tổ chức đánh giá mức độ khẩn cấp của sự kiện, t
 
 ---
 
-## Hướng dẫn cài đặt và sử dụng
+## 🔧 Hướng dẫn cài đặt và sử dụng
 
-1. **Cài đặt Windmill**:
-   - Làm theo hướng dẫn tại [Trang chủ Windmill](https://windmill.dev).
-   
-2. **Cài đặt Plugin**:
-   - Truy cập các liên kết trên để tải hoặc sử dụng plugin trực tiếp từ Windmill Hub.
+### 1. Đối với phiên bản Windmill Cloud:
+#### Bước 1: Đăng nhập vào Windmill:
+#### Bước 2: Tạo workspace tương ứng
+#### Bước 3: Truy cập vào đường link dẫn đến hub 
+#### Bước 4: Chọn "Edit/Run in Windmill", trang web sẽ tự động tạo một bản sao để bạn có thể tùy chỉnh và sử dụng trong workspace của bạn 
 
-3. **Tích hợp**:
-   - Kết nối API với các hệ thống hiện có để tự động hóa quy trình phân tích dữ liệu.
+### 2. Đối với phiển bản Windmill Self-host:
+#### Bước 1: Clone repo về máy tính
+#### Bước 2: Pull workspace về thư mục trên máy tính
+#### Bước 3: Sao chép thư mục "windmill" (nằm trong thư mục model tương ứng) vào trong workspace
+#### Bước 4: Push lên workspace, lúc này bạn có thể thấy hai model xuất hiện trong workspace để dễ dàng sử dụng
 
----
-
-## Đóng góp
+## 🤝 Đóng góp
 - Nếu bạn có bất kỳ đóng góp nào, hãy mở Pull Request hoặc Issue trên GitHub của dự án.
 
 ---
