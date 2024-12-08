@@ -16,7 +16,7 @@ Plugin này có chức năng:
 ## 3. Cách hoạt động của mô hình
 Cách hoạt động của mô hình có thể được miêu tả thông qua hình ảnh sau:
 
-![Cách hoạt động của mô hình](model_1/image/model1.png)
+![Cách hoạt động của mô hình](image/model1.png)
 
 ### Giải thích chi tiết các xử lý:
 1. **Crawl dữ liệu để trích xuất URL**:  
