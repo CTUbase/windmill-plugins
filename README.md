@@ -16,7 +16,7 @@ Plugin này có chức năng:
 Công cụ hữu ích để cảnh báo các khu vực nguy hiểm, hỗ trợ ra quyết định nhanh chóng trong quản lý khẩn cấp.
 
 #### Truy cập Plugin:
-[Predicting the Extent of Natural Disasters - GitHub](https://hub.windmill.dev/scripts/github/9891/predicting-the-extent-of-natural-disasters-github)
+[Flow Suggests Disaster Locations - Windmill Hub](https://hub.windmill.dev/flows/57/flow-suggests-disaster-locations)
 
 ---
 
@@ -39,8 +39,7 @@ Từ đó, plugin phân tích và đưa ra dự đoán về **mức độ nghiê
 Giúp các tổ chức đánh giá mức độ khẩn cấp của sự kiện, từ đó ưu tiên nguồn lực hỗ trợ.
 
 #### Truy cập Plugin:
-[Flow Suggests Disaster Locations - Windmill Hub](https://hub.windmill.dev/flows/57/flow-suggests-disaster-locations)
-
+[Predicting the Extent of Natural Disasters - GitHub](https://hub.windmill.dev/scripts/github/9891/predicting-the-extent-of-natural-disasters-github)
 ---
 
 ## 🔧 Hướng dẫn cài đặt và sử dụng
