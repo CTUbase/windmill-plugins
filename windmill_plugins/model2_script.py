@@ -60,7 +60,7 @@ def first_appearance_index(test_token_list, context):
     for idx, test_token in enumerate(test_token_list):
         count = count_tokens(test_token, context)
         if count > 0:
-            return idx
+            return idx+1
     return 0
 
 
@@ -78,35 +78,27 @@ def remove_tokens(tokens, check_tokens):
             tokens.remove(token)
     return tokens
 
+def create_input(article):
 
-data = {"deaths": 0, "injuries": 0, "property": [], "keyword": 0}
+    # Lấy token từ url tương ứng trên repo github
+    people_death_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/people_death_keywords.txt')
+    people_injuries_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/people_injuries_keywords.txt')
+    large_property_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_large_keywords.txt')
+    average_property_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_medium_keywords.txt')
+    small_property_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_small_keywords.txt')
+    serious_keyword_tokens = get_tokens_from_url('https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/serious_keywords.txt')
 
-
-def main(article: str):
-    people_death_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/people_death_keywords.txt"
-    )
-
-    people_injuries_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/people_injuries_keywords.txt"
-    )
-
-    large_property_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_large_keywords.txt"
-    )
-    average_property_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_medium_keywords.txt"
-    )
-    small_property_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/property_small_keywords.txt"
-    )
-
-    serious_keyword_tokens = get_tokens_from_url(
-        "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/sample/serious_keywords.txt"
-    )
-
+    # Khởi tạo dữ liệu ban đầu
+    data = {
+        'deaths': 0,
+        'injuries': 0,
+        'property': [],
+        'keyword': 0
+    }
+    
     tokens = create_tokens(article)
 
+    # Xử lý số
     number_conversion = {
         "trăm": 100,
         "ngàn": 1000,
@@ -118,49 +110,57 @@ def main(article: str):
         "chục_ngàn": 10000,
         "chục": 10,
         "mươi": 10,
-        "nhiều": 2,
+        "nhiều": 2
     }
 
     for idx, token in enumerate(tokens):
         if token in number_conversion:
             tokens[idx] = str(number_conversion[token])
 
+
     people_token_list = [people_death_tokens, people_injuries_tokens]
+    property_token_list = [large_property_tokens, average_property_tokens, small_property_tokens]
+
     for token in tokens:
+
         if token.isdigit():
-            left_context = tokens[max(0, tokens.index(token) - 2) : tokens.index(token)]
+            left_context = tokens[max(0, tokens.index(token) - 2):tokens.index(token)]
             check_value = first_appearance_index(people_token_list, left_context)
-            if check_value != 0:
+            if (check_value != 0):
                 if check_value == 1:
-                    data["deaths"] += int(token)
+                    data['deaths'] += int(token)
                 else:
-                    data["injuries"] += int(token)
+                    data['injuries'] += int(token)
                 remove_tokens(tokens, left_context)
                 continue
 
-            right_context = tokens[tokens.index(token) + 1 : tokens.index(token) + 2]
+
+            right_context = tokens[tokens.index(token) + 1:tokens.index(token) + 2]
             check_value = first_appearance_index(people_token_list, right_context)
-            if check_value != 0:
+            if (check_value != 0):
                 if check_value == 1:
-                    data["deaths"] += int(token)
+                    data['deaths'] += int(token)
                 else:
-                    data["injuries"] += int(token)
+                    data['injuries'] += int(token)
                 remove_tokens(tokens, right_context)
                 continue
 
-    property_token_list = [
-        large_property_tokens,
-        average_property_tokens,
-        small_property_tokens,
-    ]
+
+
     check_value = appearance_array(property_token_list, tokens)
-    data["property"] = check_value
+    data['property'] = check_value
 
     filtered_tokens = [word for word in tokens if len(word) > 2]
     length = len(filtered_tokens)
-    data["keyword"] = count_tokens(serious_keyword_tokens, filtered_tokens) / length
+    data['keyword'] = count_tokens(serious_keyword_tokens, filtered_tokens)/length
 
-    print(data)
+    return data
+
+
+
+def main(article: str):
+    
+    data = create_input(article)
 
     joblib_url = "https://raw.githubusercontent.com/CTUbase/windmill-plugins/main/model_2/models/best_decision_tree_model.joblib"
     response = requests.get(joblib_url)
